@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "ClickGuide — Real AI Virtual Cursor",
+  "version": "1.0.0",
+  "description": "AI-powered visual assistant that injects a virtual ghost cursor onto real websites, highlights where to click, and guides you step-by-step.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://github.com/*",
+    "https://linear.app/*",
+    "https://vercel.com/*",
+    "https://notion.so/*",
+    "https://generativelanguage.googleapis.com/*"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "ClickGuide AI Cursor",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/*",
+        "https://linear.app/*",
+        "https://vercel.com/*",
+        "https://notion.so/*"
+      ],
+      "js": ["flows.js", "content/content.js"],
+      "css": ["content/overlay.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "flows.js",
+        "matcher.js",
+        "content/overlay.css"
+      ],
+      "matches": [
+        "https://github.com/*",
+        "https://linear.app/*",
+        "https://vercel.com/*",
+        "https://notion.so/*"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

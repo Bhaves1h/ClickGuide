@@ -1,0 +1,574 @@
+/* ClickGuide Extension Popup Dark Styling (Manifest V3) */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 350px;
+  background-color: #09090b;
+  color: #f4f4f5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* 1. Header */
+.cg-header {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #000000;
+}
+
+.cg-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cg-logo-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cg-logo-inner {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.cg-brand-text {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.2px;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.cg-brand-sub {
+  font-size: 10px;
+  font-family: monospace;
+  color: #a1a1aa;
+}
+
+.cg-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Language Toggle */
+.cg-lang-toggle {
+  display: flex;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  padding: 2px;
+}
+
+.cg-lang-btn {
+  background: transparent;
+  border: none;
+  color: #a1a1aa;
+  font-size: 10px;
+  font-family: monospace;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cg-lang-btn.active {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.cg-icon-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #d4d4d8;
+  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cg-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+/* 2. Settings Panel */
+.cg-settings-panel {
+  padding: 12px 14px;
+  background: #18181b;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  animation: cg-slide-down 0.2s ease-out;
+}
+
+@keyframes cg-slide-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cg-settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.cg-settings-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #e4e4e7;
+  font-family: monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.cg-close-btn {
+  background: transparent;
+  border: none;
+  color: #a1a1aa;
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.cg-close-btn:hover {
+  color: #ffffff;
+}
+
+.cg-settings-desc {
+  font-size: 11px;
+  color: #a1a1aa;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.cg-settings-input-row {
+  display: flex;
+  gap: 6px;
+}
+
+.cg-settings-input {
+  flex: 1;
+  background: #09090b;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  padding: 6px 10px;
+  color: #ffffff;
+  font-size: 11px;
+  font-family: monospace;
+  outline: none;
+}
+
+.cg-settings-input:focus {
+  border-color: #22c55e;
+}
+
+.cg-btn-save-key {
+  background: #22c55e;
+  color: #000000;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-weight: 700;
+  font-size: 11px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.cg-btn-save-key:hover {
+  opacity: 0.9;
+}
+
+.cg-key-status {
+  font-size: 10px;
+  font-family: monospace;
+  margin-top: 6px;
+  color: #4ade80;
+}
+
+/* 3. Main Views */
+.cg-main {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Problem Input Wrapper */
+.cg-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #18181b;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 3px 6px 3px 12px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.cg-input-wrapper:focus-within {
+  border-color: #22c55e;
+  box-shadow: 0 0 16px rgba(34, 197, 94, 0.25);
+}
+
+.cg-problem-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 13px;
+  padding: 8px 4px;
+  outline: none;
+  min-width: 0;
+}
+
+.cg-problem-input::placeholder {
+  color: #71717a;
+}
+
+/* Mic Button */
+.cg-mic-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #d4d4d8;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  shrink-0;
+}
+
+.cg-mic-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.cg-mic-btn.is-recording {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #f87171;
+  animation: cg-mic-pulse 1.4s infinite ease-out;
+}
+
+@keyframes cg-mic-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+.cg-mic-error {
+  font-size: 11px;
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 8px;
+  padding: 6px 10px;
+  line-height: 1.4;
+}
+
+/* Quick Chips */
+.cg-quick-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cg-quick-label {
+  font-size: 11px;
+  color: #71717a;
+  font-family: monospace;
+}
+
+.cg-chip {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  padding: 3px 9px;
+  color: #d4d4d8;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cg-chip:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Primary Guide Button */
+.cg-btn-primary-action {
+  width: 100%;
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.cg-btn-primary-action:hover {
+  background: #f4f4f5;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.cg-btn-primary-action:active {
+  transform: translateY(0);
+}
+
+/* 4. Loading State */
+.cg-loading-view {
+  padding: 30px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cg-spinner {
+  width: 28px;
+  height: 28px;
+  border: 2.5px solid rgba(255, 255, 255, 0.15);
+  border-top-color: #22c55e;
+  border-radius: 50%;
+  animation: cg-spin 0.8s linear infinite;
+}
+
+@keyframes cg-spin {
+  to { transform: rotate(360deg); }
+}
+
+.cg-loading-text {
+  font-size: 12px;
+  color: #a1a1aa;
+  font-family: monospace;
+}
+
+/* 5. Steps Resolved View */
+.cg-steps-view {
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.cg-steps-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cg-back-link {
+  background: transparent;
+  border: none;
+  color: #a1a1aa;
+  font-size: 11px;
+  font-family: monospace;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.cg-back-link:hover {
+  color: #ffffff;
+}
+
+.cg-tier-badge {
+  font-size: 9px;
+  font-family: monospace;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 9999px;
+}
+
+.cg-tier-badge.tier-1 {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.cg-tier-badge.tier-2 {
+  background: rgba(129, 140, 248, 0.15);
+  color: #a5b4fc;
+  border: 1px solid rgba(129, 140, 248, 0.3);
+}
+
+.cg-flow-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: -4px;
+}
+
+.cg-steps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 240px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.cg-step-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+}
+
+.cg-step-num {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 10px;
+  font-family: monospace;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  shrink-0;
+  margin-top: 1px;
+}
+
+.cg-step-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.cg-step-card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.cg-step-card-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cg-step-card-action {
+  font-size: 9px;
+  font-family: monospace;
+  font-weight: 700;
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+  padding: 1px 4px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.cg-step-card-desc {
+  font-size: 11px;
+  color: #a1a1aa;
+  line-height: 1.4;
+}
+
+.cg-steps-footer {
+  margin-top: 4px;
+}
+
+/* 6. No Match View */
+.cg-no-match-view {
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.cg-no-match-icon {
+  font-size: 20px;
+  color: #eab308;
+}
+
+.cg-no-match-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.cg-no-match-desc {
+  font-size: 11px;
+  color: #a1a1aa;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.cg-btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cg-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.cg-tab-warning {
+  margin: 0 14px 10px;
+  font-size: 11px;
+  color: #f59e0b;
+  line-height: 1.4;
+  text-align: center;
+  display: none;
+}

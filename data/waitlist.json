@@ -1,0 +1,20 @@
+{
+  "entries": [
+    {
+      "sanitizedId": "priya.sharma@example.com",
+      "email": "priya.sharma@example.com",
+      "name": "Priya Sharma",
+      "userType": "bootcamp",
+      "source": "public-test",
+      "createdAt": "2026-09-26T09:35:37.960Z"
+    },
+    {
+      "sanitizedId": "alex@example.com",
+      "email": "alex@example.com",
+      "name": "Alex Dev",
+      "userType": "student",
+      "source": "landing",
+      "createdAt": "2026-09-26T09:31:40.632Z"
+    }
+  ]
+}

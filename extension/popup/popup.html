@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ClickGuide</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="cg-header">
+    <div class="cg-brand">
+      <div class="cg-logo-icon">
+        <div class="cg-logo-inner"></div>
+      </div>
+      <div>
+        <div class="cg-brand-text">ClickGuide</div>
+        <div class="cg-brand-sub">AI Virtual Cursor</div>
+      </div>
+    </div>
+
+    <!-- Right Controls: EN/हिन्दी Toggle + Settings Icon -->
+    <div class="cg-header-actions">
+      <div class="cg-lang-toggle" role="group" aria-label="Language selection">
+        <button class="cg-lang-btn active" id="btn-lang-en">EN</button>
+        <button class="cg-lang-btn" id="btn-lang-hi">हिन्दी</button>
+      </div>
+      <button class="cg-icon-btn" id="btn-toggle-settings" title="Settings / API Key" aria-label="Settings">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Settings Drawer / Panel (Gemini API Key for Tier 2) -->
+  <div class="cg-settings-panel" id="settings-panel" style="display: none;">
+    <div class="cg-settings-header">
+      <span class="cg-settings-title" id="settings-title">Gemini API Key (Tier 2 AI)</span>
+      <button class="cg-close-btn" id="btn-close-settings">&times;</button>
+    </div>
+    <p class="cg-settings-desc" id="settings-desc">
+      Add your Gemini API key to enable custom AI guidance on any website. Stored locally in chrome.storage.local. Never used or sent for Tier 1 offline flows.
+    </p>
+    <div class="cg-settings-input-row">
+      <input type="password" id="gemini-key-input" class="cg-settings-input" placeholder="AIzaSy..." autocomplete="off" />
+      <button class="cg-btn-save-key" id="btn-save-key">Save</button>
+    </div>
+    <div class="cg-key-status" id="key-status"></div>
+  </div>
+
+  <!-- View 1: Problem Input Screen -->
+  <main class="cg-main" id="view-input">
+    <div class="cg-input-wrapper">
+      <input 
+        type="text" 
+        id="problem-input" 
+        class="cg-problem-input" 
+        placeholder="Describe your problem…" 
+        autocomplete="off"
+      />
+      <button class="cg-mic-btn" id="btn-mic" title="Voice Input (Speech-to-Text)" aria-label="Microphone">
+        <svg class="cg-mic-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="22"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Microphone Error Alert -->
+    <div class="cg-mic-error" id="mic-error" style="display: none;">
+      Microphone blocked — type instead.
+    </div>
+
+    <!-- Quick Example Chips -->
+    <div class="cg-quick-row">
+      <span class="cg-quick-label" id="quick-label">Try:</span>
+      <button class="cg-chip" data-query="create a new repo">Create repo</button>
+      <button class="cg-chip" data-query="open my first pull request">Open PR</button>
+      <button class="cg-chip" data-query="how do I star a repository">Star repo</button>
+    </div>
+
+    <!-- Guide Me CTA -->
+    <button class="cg-btn-primary-action" id="btn-guide-me">
+      <span id="guide-label">Guide me &rarr;</span>
+    </button>
+  </main>
+
+  <!-- View 2: Resolving / Loading State -->
+  <div class="cg-loading-view" id="view-loading" style="display: none;">
+    <div class="cg-spinner"></div>
+    <div class="cg-loading-text" id="loading-text">Resolving steps...</div>
+  </div>
+
+  <!-- View 3: Steps Resolved Screen -->
+  <main class="cg-main cg-steps-view" id="view-steps" style="display: none;">
+    <div class="cg-steps-header">
+      <button class="cg-back-link" id="btn-back-to-input">&larr; Edit problem</button>
+      <span class="cg-tier-badge" id="tier-badge">Tier 1 &bull; Verified</span>
+    </div>
+
+    <div class="cg-flow-title" id="flow-title">Repository Walkthrough</div>
+
+    <div class="cg-steps-container" id="steps-container">
+      <!-- Steps rendered dynamically by popup.js -->
+    </div>
+
+    <div class="cg-steps-footer">
+      <button class="cg-btn-primary-action" id="btn-start-flow">
+        <span id="start-flow-label">Start Walkthrough</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </button>
+    </div>
+  </main>
+
+  <!-- View 4: No Match / Fallback Notice -->
+  <div class="cg-no-match-view" id="view-no-match" style="display: none;">
+    <div class="cg-no-match-icon">✦</div>
+    <div class="cg-no-match-title" id="no-match-title">No Offline Match Found</div>
+    <p class="cg-no-match-desc" id="no-match-desc">
+      To generate custom AI steps for this task, add a Gemini API key in Settings (⚙️).
+    </p>
+    <button class="cg-btn-secondary" id="btn-open-settings-from-empty">Open Settings (⚙️)</button>
+    <button class="cg-back-link" id="btn-back-from-no-match">&larr; Try another problem</button>
+  </div>
+
+  <!-- Tab Warning / Error Toast in popup -->
+  <div class="cg-tab-warning" id="tab-warning"></div>
+
+  <script src="../flows.js"></script>
+  <script src="../matcher.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

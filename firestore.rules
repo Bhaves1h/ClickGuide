@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /waitlist/{emailDoc} {
+      // Allow anonymous CREATE on waitlist only with strict validation
+      allow create: if isValidWaitlistEntry(request.resource.data);
+
+      // DENY read, update, and delete for all non-admins
+      allow read, update, delete: if false;
+    }
+
+    function isValidWaitlistEntry(data) {
+      // No extra fields: only email, name, userType, source, createdAt
+      return data.keys().hasOnly(['email', 'name', 'userType', 'source', 'createdAt'])
+        // Required fields: email, source, createdAt
+        && data.keys().hasAll(['email', 'source', 'createdAt'])
+        // email must be string and match a valid email pattern
+        && data.email is string
+        && data.email.matches('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')
+        // source must be string (default "landing")
+        && data.source is string
+        // createdAt must be a server timestamp
+        && data.createdAt == request.time
+        // optional name must be string if provided
+        && (!('name' in data) || data.name is string)
+        // optional userType must be one of allowed types if provided
+        && (!('userType' in data) || data.userType in ['student', 'bootcamp', 'other']);
+    }
+
+    // Default deny all other document paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
